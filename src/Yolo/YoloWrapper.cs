@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Yolo
 {
@@ -21,15 +22,15 @@ namespace Yolo
             Classes = File.ReadAllText(namesFile)?.Split(Environment.NewLine)?.ToList();
         }
 
-        public List<Prediction> Detect(string file) => Detect(file, null, 0);
-        
-        public List<Prediction> Detect(string file, string[] classesToDetect) => Detect(file, classesToDetect, 0);
+        public async Task<List<Prediction>> Detect(string file) => await Detect(file, null, 0);
 
-        public List<Prediction> Detect(string file, float threshold) => Detect(file, null, threshold);
+        public async Task<List<Prediction>> Detect(string file, string[] classesToDetect) => await Detect(file, classesToDetect, 0);
 
-        public List<Prediction> Detect(string file, string[] classesToDetect, float threshold)
+        public async Task<List<Prediction>> Detect(string file, float threshold) => await Detect(file, null, threshold);
+
+        public async Task<List<Prediction>> Detect(string file, string[] classesToDetect, float threshold)
         {
-            return YoloCppWrapper.Detect(file)?.Where(p => p.frames_counter > 0 && p.h > 0 && p.w > 0).
+            return await Task.Factory.StartNew(() => YoloCppWrapper.Detect(file)?.Where(p => p.frames_counter > 0 && p.h > 0 && p.w > 0).
                 Select(r => new Prediction()
                 {
                     Height = (int)r.h,
@@ -39,28 +40,28 @@ namespace Yolo
                     X = (int)r.x,
                     Y = (int)r.y
                 }).Where(s => (classesToDetect?.Any() ?? false) ? classesToDetect.Contains(s.Name) : true &&
-                                threshold > 0 ? s.Probability >= threshold : true)?.OrderByDescending(d => d.Probability)?.ToList();
+                                threshold > 0 ? s.Probability >= threshold : true)?.OrderByDescending(d => d.Probability)?.ToList());
         }
 
-        public List<Prediction> Detect(byte[] file) => Detect(file, null, 0);
+        public async Task<List<Prediction>> Detect(byte[] file) => await Detect(file, null, 0);
 
-        public List<Prediction> Detect(byte[] file, float threshold) => Detect(file, null, threshold);
+        public async Task<List<Prediction>> Detect(byte[] file, float threshold) => await Detect(file, null, threshold);
 
-        public List<Prediction> Detect(byte[] file, string[] classesToDetect) => Detect(file, classesToDetect, 0);
+        public async Task<List<Prediction>> Detect(byte[] file, string[] classesToDetect) => await Detect(file, classesToDetect, 0);
 
-        public List<Prediction> Detect(byte[] file, string[] classesToDetect, float threshold)
+        public async Task<List<Prediction>> Detect(byte[] file, string[] classesToDetect, float threshold)
         {
-            return YoloCppWrapper.Detect(file)?.Where(p => p.h > 0 && p.w > 0).
-                Select(r => new Prediction()
-                {
-                    Height = (int)r.h,
-                    Width = (int)r.w,
-                    Name = Classes[(int)r.obj_id],
-                    Probability = r.prob,
-                    X = (int)r.x,
-                    Y = (int)r.y
-                }).Where(s => (classesToDetect?.Any() ?? false) ? classesToDetect.Contains(s.Name) : true &&
-                                threshold > 0 ? s.Probability >= threshold : true)?.OrderByDescending(d => d.Probability)?.ToList();
+            return await Task.Factory.StartNew(() => YoloCppWrapper.Detect(file)?.Where(p => p.h > 0 && p.w > 0).
+              Select(r => new Prediction()
+              {
+                  Height = (int)r.h,
+                  Width = (int)r.w,
+                  Name = Classes[(int)r.obj_id],
+                  Probability = r.prob,
+                  X = (int)r.x,
+                  Y = (int)r.y
+              }).Where(s => (classesToDetect?.Any() ?? false) ? classesToDetect.Contains(s.Name) : true &&
+                              threshold > 0 ? s.Probability >= threshold : true)?.OrderByDescending(d => d.Probability)?.ToList());
         }
     }
 }

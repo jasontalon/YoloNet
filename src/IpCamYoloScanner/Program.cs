@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Yolo;
 namespace YoloConsole
 {
@@ -56,7 +58,7 @@ namespace YoloConsole
             return new YoloWrapper(Path.Combine(dir, $"{model}.cfg"), Path.Combine(dir, $"{model}.weights"), Path.Combine(dir, $"{model}.names"));
         }
 
-        static void ReadCam(string model, string camUrl, string[] classes, int scanDuration = 60)
+        static async void ReadCam(string model, string camUrl, string[] classes, int scanDuration = 60)
         {
             var yolo = InitWrapper(model);
 
@@ -64,17 +66,19 @@ namespace YoloConsole
             {
                 var dtUntil = DateTime.Now.AddSeconds(scanDuration);
 
+                int count = 0;
                 while (dtUntil >= DateTime.Now)
                 {
                     var data = client.DownloadData(camUrl);
 
-                    var results = yolo.Detect(data, classes);
+                    var results = await Task.Run(() => yolo.Detect(data, classes));
 
                     if (!results?.Any() ?? false) continue;
-
+                    Console.WriteLine($"{count} {DateTime.Now}");
                     results.ForEach((pred) => Console.WriteLine($"{pred.Name} {pred.Probability} X={pred.X} Y={pred.Y} Width={pred.Width} Height={pred.Height}"));
 
                     Console.WriteLine("-----------------");
+                    count++;
                 }
             }
         }
