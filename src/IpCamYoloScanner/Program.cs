@@ -79,7 +79,7 @@ namespace YoloConsole
                     results.ForEach((pred) =>
                     {
                         Console.WriteLine(
-                            $"{pred.Name} {pred.Probability} X={pred.X} Y={pred.Y} Width={pred.Width} Height={pred.Height}{Environment.NewLine}Image={pred.GetBoundingBoxImage(data, group)}");
+                            $"{pred.Name} {pred.Probability} X={pred.X} Y={pred.Y} Width={pred.Width} Height={pred.Height}{Environment.NewLine}Image={pred.ExportToImage(data, group)}");
                         
                     });
 

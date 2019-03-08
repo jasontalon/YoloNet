@@ -7,9 +7,22 @@ namespace Yolo
 {
     public static class Helpers
     {
-        public static string GetBoundingBoxImage(this Prediction prediction, byte[] image) => GetBoundingBoxImage(prediction, image);
+        /// <summary>
+        /// Crops the image according to the bounding box coordinates and saves to an image file
+        /// </summary>
+        /// <param name="prediction"></param>
+        /// <param name="image"></param>
+        /// <returns>Exported image file path</returns>
+        public static string ExportToImage(this Prediction prediction, byte[] image) => ExportToImage(prediction, image);
 
-        public static string GetBoundingBoxImage(this Prediction prediction, byte[] image, string group = "")
+        /// <summary>
+        /// Crops the image according to the bounding box coordinates and saves to an image file
+        /// </summary>
+        /// <param name="prediction"></param>
+        /// <param name="image"></param>
+        /// <param name="group"></param>
+        /// <returns>Exported image file path</returns>
+        public static string ExportToImage(this Prediction prediction, byte[] image, string group = "")
         {
             var rect = new Rectangle(prediction.X, prediction.Y, prediction.Width, prediction.Height);
 
@@ -33,7 +46,13 @@ namespace Yolo
             }
         }
 
-        public static Bitmap GetBoundingBoxBitmap(this Prediction prediction, byte[] image)
+        /// <summary>
+        /// Crops the bounding boxes and exports to a bitmap object
+        /// </summary>
+        /// <param name="prediction"></param>
+        /// <param name="image"></param>
+        /// <returns>Exported bitmap object</returns>
+        public static Bitmap ExportToBitmap(this Prediction prediction, byte[] image)
         {
             var rect = new Rectangle(prediction.X, prediction.Y, prediction.Width, prediction.Height);
 
