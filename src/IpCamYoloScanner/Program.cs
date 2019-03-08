@@ -75,7 +75,13 @@ namespace YoloConsole
 
                     if (!results?.Any() ?? false) continue;
                     Console.WriteLine($"{count} {DateTime.Now}");
-                    results.ForEach((pred) => Console.WriteLine($"{pred.Name} {pred.Probability} X={pred.X} Y={pred.Y} Width={pred.Width} Height={pred.Height}"));
+                    var group = string.Empty.GetRandomString();
+                    results.ForEach((pred) =>
+                    {
+                        Console.WriteLine(
+                            $"{pred.Name} {pred.Probability} X={pred.X} Y={pred.Y} Width={pred.Width} Height={pred.Height}{Environment.NewLine}Image={pred.GetBoundingBoxImage(data, group)}");
+                        
+                    });
 
                     Console.WriteLine("-----------------");
                     count++;
