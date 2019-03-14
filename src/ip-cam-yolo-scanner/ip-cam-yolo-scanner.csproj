@@ -2,7 +2,9 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>ip_cam_yolo_scanner</AssemblyName>
+    <RootNamespace>IpCamYoloScanner</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -21,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yolo\Yolo.csproj" />
+    <ProjectReference Include="..\Yolo\yolo.csproj" />
   </ItemGroup>
 
   <ItemGroup>

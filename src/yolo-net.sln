@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IpCamYoloScanner", "IpCamYoloScanner\IpCamYoloScanner.csproj", "{C68383C6-5DC6-48B5-BA16-944BBED0D4EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ip-cam-yolo-scanner", "ip-cam-yolo-scanner\ip-cam-yolo-scanner.csproj", "{C68383C6-5DC6-48B5-BA16-944BBED0D4EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yolo", "Yolo\Yolo.csproj", "{A98E2A6D-45FE-4C7C-B564-F3E23544FA6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yolo", "Yolo\yolo.csproj", "{A98E2A6D-45FE-4C7C-B564-F3E23544FA6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

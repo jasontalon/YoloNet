@@ -6,3 +6,7 @@ src/IpCamYoloScanner/bin/
 src/IpCamYoloScanner/obj/
 src/IpCamYoloScanner/Properties/
 data
+src/ip-cam-yolo-scanner/.vs/
+src/ip-cam-yolo-scanner/bin/
+src/ip-cam-yolo-scanner/obj/
+src/ip-cam-yolo-scanner/appsettings.json
