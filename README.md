@@ -1,6 +1,6 @@
-# YoloNet
+# yolo-net
 
-A simple dotnet core wrapper for Darknet YOLO
+A simple dotnet core wrapper for Darknet Framework
 
 ## Motivation
 
